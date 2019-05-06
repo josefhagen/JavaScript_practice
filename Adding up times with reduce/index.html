@@ -193,9 +193,9 @@ const seconds = timeNodes.map(node => node.dataset.time) //creates new array wit
 }).reduce((total, vidSeconds) => total + vidSeconds); //now we got the total seconds
 
 let secondsLeft = seconds; 
-const hours = Math.floor(secondsLeft / 3600); 
+const hours = Math.floor(secondsLeft / 3600); //Avrundar 
 
-secondsLeft = secondsLeft % 3600;
+secondsLeft = secondsLeft % 3600; //de sekunder som blir över
 
 const mins = Math.floor(secondsLeft / 60);
 secondsLeft = secondsLeft % 60;
