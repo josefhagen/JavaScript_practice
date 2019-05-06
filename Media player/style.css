@@ -51,7 +51,7 @@ html {
     outline: 0;
     padding: 0;
     cursor: pointer;
-    max-width: 50px;
+    max-width: 70px;
   }
 
  
@@ -68,7 +68,7 @@ html {
     max-width: 50px;
   }
 
-  #fullscreen-button {
+  /* #fullscreen-button {
     background: none;
     border: 0;
     line-height: 1;
@@ -78,7 +78,7 @@ html {
     padding: 0;
     cursor: pointer;
     max-width: 70px;
-  }
+  } */
 
   
   .player__button:focus {

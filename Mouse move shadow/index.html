@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Shadow</title>
+</head>
+<body>
+
+  <div class="hero">
+    <h1 contenteditable>🔥WOAH!</h1>
+  </div>
+
+  <style>
+  html {
+    color: black;
+    font-family: sans-serif;
+  }
+  body {
+    margin: 0;
+  }
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+  }
+  h1 {
+    text-shadow: 10px 10px 0 rgba(0,0,0,1);
+    font-size: 100px;
+  }
+  </style>
+
+<script>
+    const hero = document.querySelector('.hero');
+    const text = hero.querySelector('h1');
+    const walk = 100;//px
+
+
+    function shadow(e) {
+        const width = hero.offsetWidth;
+        const height = hero.offsetHeight;
+        //let { offsetX: x, offsetY: y } = e; //vart personens muspekare är
+        let x = e.offsetX;
+        let y = e.offsetY;
+
+        if(this !== e.target) { //Om hero(this) inte är target
+            x = x + e.target.offsetLeft; //ger oss de pixels till h1 och pixels till vänster
+            y = y + e.target.offsetTop; 
+        }
+
+        const xWalk = (x / width * walk) - (walk / 2); //om man går hela vägen upp till höger ser är det + 50 och längst ner till vänster -50
+        const ywalk = Math.round((y / height* walk) - (walk/2)); 
+
+        console.log(xWalk, yWalk); 
+    }
+
+        
+
+    hero.addEventListener('mousemove', shadow); 
+
+
+</script>
+</body>
+</html>

@@ -2,11 +2,12 @@
 
 const player = document.querySelector(".player"); 
 const muteBtn = document.getElementById('mute-button');
-const fullscreenBtn = document.getElementById("fullscreen-button")
+//const fullscreenBtn = document.getElementById("fullscreen-button")
 const video = player.querySelector('.viewer');
 const progress = player.querySelector('.progress');
 const progressBar = player.querySelector('.progress__filled');
 const toggle = player.querySelector('.toggle');
+const fullscreen = player.querySelector('.fullscreen');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 
@@ -66,10 +67,18 @@ function toggleMute() {
  
  //Only shows black screen but with sounds
  function openFullScreen() {
+
+    // const icon2 = this.paused ? "►" : "❚ ❚"; 
+    //  console.log(icon2); 
+
      if (player.webkitRequestFullscreen) {
         player.webkitRequestFullscreen();
-     } 
-  }
+     } else if (player.webkitExitFullscreen) {
+            changeButtonType(fullscreen, 'Not')
+            player.webkitExitFullscreen();
+         }
+     }
+  
 
   
 
@@ -109,7 +118,7 @@ video.addEventListener("timeupdate", handleProgress);
 
 toggle.addEventListener("click", togglePlay);
 muteBtn.addEventListener('click', toggleMute);
-fullscreenBtn.addEventListener("click", openFullScreen); 
+fullscreen.addEventListener("click", openFullScreen); 
 
 skipButtons.forEach(button => button.addEventListener('click', skip));
 ranges.forEach(range => range.addEventListener("change", handleRangeUpdate));   
