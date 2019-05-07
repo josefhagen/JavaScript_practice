@@ -15,7 +15,7 @@ function getVideo() {
     .catch(err => {
         console.error(`NEIN!!!`, err);
       });
-  } 
+  }
 
 function painToCanvas() {
     const width = video.videoWidth; //Get the actual width of the video
@@ -38,7 +38,6 @@ function takePhoto() {
     //play sound
     snap.currentTime = 0;
     snap.play(); 
-
     //Take the data out of the canvas
     const data = canvas.toDataUrl('image/jpeg'); //create image
     const link = document.createElement('a'); //create inker-link to put in strip
