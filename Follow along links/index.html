@@ -37,11 +37,13 @@
     function highlightLink() {
       const linkCoords = this.getBoundingClientRect(); //this is each of the links
       console.log(linkCoords);
+      
       const coords = { //When we scroll the highlighter gets off with the amount we scrolled 
         width: linkCoords.width,
         height: linkCoords.height,
         top: linkCoords.top + window.scrollY, //Add the amount we scroll
         left: linkCoords.left + window.scrollX //Add the amount we scroll
+        
       };
 
       highlight.style.width = `${coords.width}px`;
