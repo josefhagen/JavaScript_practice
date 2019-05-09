@@ -13,6 +13,7 @@ function getVideo() {
         //When played "canplay" will be called and run painToCanvas();                                                      
     }) 
     .catch(err => {
+      
         console.error(`NEIN!!!`, err);
       });
   }
