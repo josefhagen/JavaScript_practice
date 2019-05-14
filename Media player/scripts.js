@@ -66,7 +66,7 @@ function toggleMute() {
 
  
  //Only shows black screen but with sounds
- function openFullScreen() {
+ function openFullScreen() { 
 
     // const icon2 = this.paused ? "►" : "❚ ❚"; 
     //  console.log(icon2); 
@@ -79,13 +79,12 @@ function toggleMute() {
          }
      }
   
-
   
 
 // show in bio-mode
 // function openFullScreen() {
 //     if (!document.fullscreenElement &&  
-//         !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) { 
+//document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) { 
 //       if (document.documentElement.requestFullscreen) {
 //         document.documentElement.requestFullscreen();
 //       } else if (document.documentElement.msRequestFullscreen) {

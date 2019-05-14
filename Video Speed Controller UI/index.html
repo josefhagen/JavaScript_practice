@@ -35,10 +35,10 @@
           const playBackRate = percent * (max - min) + min; 
           bar.style.height = height; 
           bar.textContent = playBackRate.toFixed(2) + 'x'; 
+          video.playBackRate = playBackRate; 
        
 
       }
-
       speed.addEventListener('mousedown', handleMove); 
     </script>
   </body>
