@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Speech Detection</title>
+  </head>
+  <body>
+    <div class="words" contenteditable></div>
+
+    <i class="fa fa-microphone"></i>
+    <i class="fa fa-stop"></i>
+
+    <script>
+      window.SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+      window.SpeechGrammarList =
+        window.SpeechGrammarList || window.webkitSpeechGrammarList; //add some grammar
+
+      const grammar =
+        "#JSGF V1.0; grammar starwars; public <planet> = [ Naboo | Ambria | Vortex | Scarif | Kashyyyk;";
+
+      const recognition = new SpeechRecognition();
+      const speechRecognitionList = new SpeechGrammarList();
+      const synthesis = window.speechSynthesis;
+      const startRecognitionListening = document.querySelector(
+        "i.fa.fa-microphone"
+      );
+      const stopRecognitionListening = document.querySelector("i.fa.fa-stop");
+
+      recognition.interimResults = true; //lets us se what we speak
+      recognition.maxAlternatives = 1;
+      recognition.lang = "en-US";
+      recognition.grammars = speechRecognitionList;
+
+      speechRecognitionList.addFromString(grammar, 1);
+
+      let p = document.createElement("p");
+      const words = document.querySelector(".words");
+      words.appendChild(p);
+
+      recognition.addEventListener("result", e => {
+        const transcript = Array.from(e.results)
+          .map(result => result[0]) //first
+          .map(result => result.transcript)
+          .join(""); //we want one big string
+
+        p.textContent = transcript;
+        if (e.results[0].isFinal) {
+          p = document.createElement("p");
+          words.appendChild(p);
+        }
+
+        if (e.results[0].isFinal || transcript.includes("time")) {
+          speak(getTime);
+        }
+        if (e.results[0].isFinal || transcript.includes("date")) {
+          speak(getDate);
+        }
+
+        console.log(e.results);
+        console.log(transcript);
+      });
+
+      const speak = action => {
+        const utterThis = new SpeechSynthesisUtterance(action());
+        synthesis.speak(utterThis);
+      };
+
+      const getTime = () => {
+        const time = new Date(Date.now());
+        return ` the time is ${time.toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true
+        })}`;
+      };
+
+      const getDate = () => {
+        const time = new Date(Date.now());
+        return `today is ${time.toLocaleDateString()}`;
+      };
+
+      recognition.addEventListener("end", recognition.start); //when we stop talking we run function start again
+
+      startRecognitionListening.addEventListener("click", () => {
+        dictate();
+      });
+
+      stopRecognitionListening.addEventListener("click", () => {
+        recognition.abort();
+        console.log(recognition);
+      });
+
+      const dictate = () => {
+        recognition.start();
+        console.log(recognition);
+      };
+
+      // recognition.onerror = function(e) {
+      //   diagnostic.textContent =
+      //     "Error occurred in recognition: " + event.error;
+      // };
+    </script>
+
+    <style>
+      html {
+        font-size: 10px;
+      }
+      body {
+        background: #ffc600;
+        font-family: "helvetica neue";
+        font-weight: 200;
+        font-size: 20px;
+      }
+      .words {
+        max-width: 500px;
+        margin: 50px auto;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
+        padding: 1rem 2rem 1rem 5rem;
+        background: -webkit-gradient(
+            linear,
+            0 0,
+            0 100%,
+            from(#d9eaf3),
+            color-stop(4%, #fff)
+          )
+          0 4px;
+        background-size: 100% 3rem;
+        position: relative;
+        line-height: 3rem;
+      }
+
+      p {
+        margin: 0 0 3rem;
+      }
+      .words:before {
+        content: "";
+        position: absolute;
+        width: 4px;
+        top: 0;
+        left: 30px;
+        bottom: 0;
+        border: 1px solid;
+        border-color: transparent #efe4e4;
+      }
+
+      .fa {
+        color: white;
+        background: #1037e4;
+        border-radius: 50%;
+        cursor: pointer;
+        margin-top: 1rem;
+        float: right;
+        width: 2rem;
+        height: 2rem;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .fa .fa-stop {
+        color: black;
+        background: black;
+        border-radius: 50%;
+        cursor: pointer;
+        margin-top: 1rem;
+        float: right;
+        width: 2rem;
+        height: 2rem;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </body>
+</html>
